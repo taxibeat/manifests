@@ -8,11 +8,15 @@ configMapGenerator:
   - name: pipeline-install-config
     behavior: replace
     envs:
-      - ./dev.params.env
+      - ./pipeline.dev.params.env
   - name: pipeline-upstream-install-config
     behavior: merge
     envs:
-      - ./dev.params.env
+      - ./pipeline.dev.params.env
+  - name: metadata-db-parameters
+    behavior: replace
+    envs:
+      - ./metadata.dev.params.env
 
 generators:
   - ./secretGenerator.yaml
