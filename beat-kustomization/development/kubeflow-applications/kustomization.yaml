@@ -3,3 +3,16 @@ kind: Kustomization
 
 resources:
   - ../../../stacks/kubernetes
+
+configMapGenerator:
+  - name: pipeline-install-config
+    behavior: replace
+    envs:
+      - ./dev.params.env
+  - name: pipeline-upstream-install-config
+    behavior: merge
+    envs:
+      - ./dev.params.env
+
+generators:
+  - ./secretGenerator.yaml

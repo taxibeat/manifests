@@ -1,0 +1,13 @@
+creation_rules:
+  - encrypted_regex: "^(data|stringData)$"
+    path_regex: .*(development|dev).*
+    kms: arn:aws:kms:us-east-1:306688209471:key/12508297-ebc0-4462-9d7b-b9dd4194fbb2,arn:aws:kms:eu-west-1:306688209471:key/e598e7cf-7ad2-414a-ac14-682799b01cf3
+  - encrypted_regex: "^(data|stringData)$"
+    path_regex: .*(production|prod).*
+    kms: arn:aws:kms:us-east-1:532412621030:key/66310077-c8f4-4a7e-87cd-3aaf12e581df,arn:aws:kms:eu-west-1:532412621030:key/d9a22294-a2ef-4191-8238-623b22c402b7
+  - encrypted_regex: "^(data|stringData)$"
+    path_regex: .*(management|mgmt).*
+    kms: arn:aws:kms:us-east-1:599253917406:key/45a11a8a-80b9-4ec2-98a6-63ecef38260d,arn:aws:kms:eu-west-1:599253917406:key/099eee30-ad99-44ce-973b-b93555ddf556
+  - encrypted_regex: "^(data|stringData)$"
+    path_regex: .*(staging|stg).*
+    kms: arn:aws:kms:us-east-1:603915523596:key/8274f3b9-f678-4b91-9929-0f77efb00514,arn:aws:kms:eu-west-1:603915523596:key/b7e5a051-93d6-4cc6-9885-045125a39d8f

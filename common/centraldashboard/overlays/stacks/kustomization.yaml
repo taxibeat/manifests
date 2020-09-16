@@ -5,8 +5,13 @@ commonLabels:
 kind: Kustomization
 namespace: kubeflow
 patchesStrategicMerge:
-- deployment_kf_config.yaml
+  - deployment_kf_config.yaml
 resources:
-- ../../base_v3
-- ../../overlays/istio
-- ../../overlays/application
+  - ../../base_v3
+  - ../../overlays/istio
+  - ../../overlays/application
+
+images:
+  - name: gcr.io/kubeflow-images-public/centraldashboard
+    newName: harbor.mgmt.bigdata.thebeat.co/beat-bigdata/centraldashboard
+    newTag: v1.1
