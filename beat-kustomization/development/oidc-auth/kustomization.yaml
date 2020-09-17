@@ -8,7 +8,7 @@ configMapGenerator:
   - name: oidc-authservice-parameters
     behavior: merge
     literals:
-      - client_id=kubeflow-oidc-authservice
+      - client_id=bigdata-development
       - oidc_provider=https://dex.mgmt.bigdata.thebeat.co
       - oidc_redirect_uri=https://kubeflow.dev.bigdata.thebeat.co/login/oidc
       - oidc_auth_url=https://dex.mgmt.bigdata.thebeat.co/auth
