@@ -16,21 +16,12 @@ resources:
   - ../../tf-training/tf-job-operator/overlays/application
   - ../../mxnet-job/mxnet-operator/overlays/application
   - ../../mpi-job/mpi-operator/overlays/application
-  # Changed katib to external DB
-  - ../../katib/installs/katib-external-db
-  # - ../../katib/installs/katib-standalone
+  - ../../katib/installs/katib-standalone
   # Pipelines
-  ###########################
-  # We need to add the EFS provisioner for minio or discard it and instruct Engineers to use directly AWS
   - ../../pipeline/minio/installs/generic
-  # We are going to change mysql with and RDS
-  # - ../../pipeline/mysql/installs/generic
-  ###########################
+  - ../../pipeline/mysql/installs/generic
   - ../../pipeline/installs/multi-user
-  ###########################
-  # We are going to remove argo installation as it is already managed externally
-  # - ../../argo/base_v3
-  ###########################
+  - ../../argo/base_v3
   # Serving components
   - ../../seldon/seldon-core-operator/overlays/application
   # Metadata

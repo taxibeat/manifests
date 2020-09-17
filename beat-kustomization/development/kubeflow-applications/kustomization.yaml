@@ -1,8 +1,42 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
+namespace: kubeflow
+
 resources:
-  - ../../../stacks/kubernetes
+  # Control pane
+  - ../../../admission-webhook/webhook/v3
+  - ../../../common/centraldashboard/overlays/stacks
+  - ../../../kubeflow-roles/base
+  - ../../../jupyter/jupyter-web-app/base_v3
+  - ../../../jupyter/notebook-controller/base_v3
+  - ../../../profiles/base_v3
+  # Training Operators
+  - ../../../pytorch-job/pytorch-job-crds/overlays/application
+  - ../../../pytorch-job/pytorch-operator/overlays/application
+  - ../../../tf-training/tf-job-crds/overlays/application
+  - ../../../tf-training/tf-job-operator/overlays/application
+  - ../../../mxnet-job/mxnet-operator/overlays/application
+  - ../../../mpi-job/mpi-operator/overlays/application
+  # Changed katib to external DB
+  - ../../../katib/installs/katib-external-db
+  # - ../../../katib/installs/katib-standalone
+  # Pipelines
+  ###########################
+  # We need to add the EFS provisioner for minio or discard it and instruct Engineers to use directly AWS
+  - ../../../pipeline/minio/installs/generic
+  # We are going to change mysql with and RDS
+  # - ../../../pipeline/mysql/installs/generic
+  ###########################
+  - ../../../pipeline/installs/multi-user
+  ###########################
+  # We are going to remove argo installation as it is already managed externally
+  # - ../../../argo/base_v3
+  ###########################
+  # Serving components
+  - ../../../seldon/seldon-core-operator/overlays/application
+  # Metadata
+  - ../../../metadata/v3
 
 configMapGenerator:
   - name: pipeline-install-config
@@ -17,6 +51,34 @@ configMapGenerator:
     behavior: replace
     envs:
       - ./metadata.dev.params.env
+  - name: kubeflow-config
+    envs:
+      - ./kubeflow.dev.params.env
 
 generators:
   - ./secretGenerator.yaml
+
+vars:
+  # We need to define vars at the top level otherwise we will get
+  # conflicts.
+  - fieldref:
+      fieldPath: data.clusterDomain
+    name: clusterDomain
+    objref:
+      apiVersion: v1
+      kind: ConfigMap
+      name: kubeflow-config
+  - fieldref:
+      fieldPath: metadata.namespace
+    name: namespace
+    objref:
+      apiVersion: v1
+      kind: ConfigMap
+      name: kubeflow-config
+  - fieldref:
+      fieldpath: metadata.namespace
+    name: katib-ui-namespace
+    objref:
+      kind: Service
+      name: katib-ui
+      apiVersion: v1
