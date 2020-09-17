@@ -1,6 +1,10 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
+### CRDs are important and must be deployed before Kubeflow Application
+commonAnnotations:
+  argocd.argoproj.io/sync-wave: "-40"
+
 resources:
   - ../../../stacks/kubernetes/application/cert-manager
   - ../../../stacks/kubernetes/application/cert-manager-crds

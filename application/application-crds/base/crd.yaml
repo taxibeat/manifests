@@ -3,6 +3,8 @@ kind: CustomResourceDefinition
 metadata:
   creationTimestamp: null
   name: applications.app.k8s.io
+  annotations:
+    argocd.argoproj.io/sync-wave: "-50"
 spec:
   group: app.k8s.io
   names:
@@ -42,7 +44,7 @@ spec:
                       type:
                         type: string
                     required:
-                    - src
+                      - src
                     type: object
                   type: array
                 keywords:
@@ -222,8 +224,8 @@ spec:
                   type:
                     type: string
                 required:
-                - type
-                - status
+                  - type
+                  - status
                 type: object
               type: array
             observedGeneration:
