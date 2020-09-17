@@ -24,7 +24,7 @@ resources:
   # Pipelines
   ###########################
   # We need to add the EFS provisioner for minio or discard it and instruct Engineers to use directly AWS
-  - ../../../pipeline/minio/installs/generic
+  # - ../../../pipeline/minio/installs/generic
   # We are going to change mysql with and RDS
   # - ../../../pipeline/mysql/installs/generic
   ###########################
