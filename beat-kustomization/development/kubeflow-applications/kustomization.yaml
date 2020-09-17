@@ -58,6 +58,23 @@ configMapGenerator:
 generators:
   - ./secretGenerator.yaml
 
+patches:
+  - patch: |
+      - op: replace
+        path: /spec/template/spec/containers/0/resources
+        value:
+          requests:
+            cpu: 50m
+            memory: 64Mi
+          limits:
+            cpu: 400m
+            memory: 256Mi
+    target:
+      group: apps
+      kind: Deployment
+      name: ".*"
+      namespace: kubeflow
+
 vars:
   # We need to define vars at the top level otherwise we will get
   # conflicts.
