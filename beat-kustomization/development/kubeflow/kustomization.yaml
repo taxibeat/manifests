@@ -9,3 +9,4 @@ resources:
   - ../../../metacontroller/base
   - ../../../namespaces/base
   - ../../../spark/spark-operator/overlays/application
+  - ./kubeflow-gateway.yaml
